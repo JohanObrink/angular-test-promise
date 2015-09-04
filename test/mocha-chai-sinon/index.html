@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Mocha/Chai/Sinon - angular-test-promise</title>
+    <link rel="stylesheet" href="../../bower_components/mocha/mocha.css" />
+  </head>
+  <body>
+    <div id="mocha"></div>
+
+    <!-- Test framework and mocking -->
+    <script src="../../bower_components/mocha/mocha.js"></script>
+    <script src="../../bower_components/chai/chai.js"></script>
+    <script src="../../bower_components/sinon/index.js"></script>
+    <script src="../../bower_components/sinon-chai/lib/sinon-chai.js"></script>
+
+    <script>mocha.setup('bdd')</script>
+
+    <!-- Angular with mocks -->
+    <script src="../../bower_components/angular/angular.js"></script>
+    <script src="../../bower_components/angular-mocks/angular-mocks.js"></script>
+
+    <!-- angular-test-promise -->
+    <script src="../../src/index.js"></script>
+
+    <!-- code -->
+    <script src="../app/test-app.module.js"></script>
+    <script src="../app/main.controller.js"></script>
+    <script src="../app/repo.service.js"></script>
+
+    <!-- tests -->
+    <script src="main.controller.spec.js"></script>
+
+    <script>
+      (function() {
+        var currentWindowOnload = window.onload;
+        window.onload = function() {
+          if (currentWindowOnload) {
+            currentWindowOnload();
+          }
+          window.expect = chai.expect;
+          mocha.checkLeaks();
+          mocha.run();
+        };
+      })();
+    </script>
+  </body>
+</html> 

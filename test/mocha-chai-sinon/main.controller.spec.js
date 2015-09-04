@@ -6,10 +6,10 @@ describe('Main controller', function () {
     $scope = $rootScope.$new();
 
     repo = {
-      getCommits = sinon.promise();
+      getCommits: sinon.promise()
     };
 
-    $controller = $injector.get('$controller');
+    var $controller = $injector.get('$controller');
     vm = $controller('Main', {
       '$scope': $scope,
       'repo': repo
@@ -19,7 +19,7 @@ describe('Main controller', function () {
     expect(repo.getCommits).calledOnce;
   });
   it('sets isLoading to true when getting commits', function () {
-    expect(vm.isTrue).to.be.true;
+    expect(vm.isLoading).to.be.true;
   });
   it('sets puts the commits on vm.commits on success', function () {
     var commits = [{}, {}, {}];

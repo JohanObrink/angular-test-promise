@@ -27,7 +27,6 @@
   "homepage": "https://github.com/JohanObrink/angular-test-promise",
   "devDependencies": {
     "gulp": "^3.9.0",
-    "gulp-jasmine-browser": "^0.2.3",
     "gulp-jshint": "^1.11.2",
     "gulp-mocha-phantomjs": "^0.10.1",
     "gulp-util": "^3.0.6",

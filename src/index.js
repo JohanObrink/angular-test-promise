@@ -18,12 +18,12 @@
       spy.resolve = function () {
         deferred.resolve.apply(deferred, arguments);
         $rootScope.$digest();
-      }
+      };
 
       spy.reject = function () {
         deferred.reject.apply(deferred, arguments);
         $rootScope.$digest();
-      }
+      };
 
       if('function' === typeof spy.andReturn) {
         spy = spy.andReturn(deferred.promise);
@@ -46,12 +46,12 @@
       spy.resolve = function () {
         deferred.resolve.apply(deferred, arguments);
         $rootScope.$digest();
-      }
+      };
 
       spy.reject = function () {
         deferred.reject.apply(deferred, arguments);
         $rootScope.$digest();
-      }
+      };
 
       return spy;
     };

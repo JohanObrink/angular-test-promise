@@ -9,7 +9,7 @@ describe('Main controller', function () {
       getCommits: jasmine.createPromise('repo.getCommits')
     };
 
-    $controller = $injector.get('$controller');
+    var $controller = $injector.get('$controller');
     vm = $controller('Main', {
       '$scope': $scope,
       'repo': repo

@@ -32,6 +32,8 @@
     "mocha": "~2.3.0",
     "chai": "~3.2.0",
     "sinon-chai": "~2.8.0",
-    "sinon-1.16.0": "http://sinonjs.org/releases/sinon-1.16.0.js"
+    "sinon": "http://sinonjs.org/releases/sinon-1.16.0.js",
+    "jasmine-sinon": "https://raw.githubusercontent.com/froots/jasmine-sinon/0.3.2/lib/jasmine-sinon.js",
+    "jasmine2-sinon": "https://raw.githubusercontent.com/froots/jasmine-sinon/0.4.0/lib/jasmine-sinon.js"
   }
 }
