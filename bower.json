@@ -1,0 +1,27 @@
+{
+  "name": "angular-test-promise",
+  "version": "0.0.0",
+  "authors": [
+    "Johan Öbrink <johan.obrink@gmail.com>"
+  ],
+  "description": "Adds $q promise capability to jasmine or sinon",
+  "main": "src/index.js",
+  "keywords": [
+    "jasmine",
+    "mocha",
+    "sinon",
+    "angular",
+    "$q",
+    "tst",
+    "promise"
+  ],
+  "license": "MIT",
+  "homepage": "git@github.com:JohanObrink/angular-test-promise.git",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
