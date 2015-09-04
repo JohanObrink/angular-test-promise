@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Angular Test Promise</title>
+  </head>
+  <body ng-app="test-app">
+    <section ng-controller="Main as vm">
+      <div>
+        <button ng-click="vm.getCommits()" enabled="!vm.isLoading">Load commits</button>
+        <span ng-if="vm.isLoading">Loading</span>
+      </div>
+      <ol>
+        <li ng-repeat="item in vm.commits">
+          <div>{{::item.commit.committer.name}} [{{::item.commit.committer.date}}]</div>
+          <p>{{::item.commit.message}}</p>
+        </li>
+      </ol>
+    </section>
+    <script src="../../bower_components/angular/angular.js"></script>
+    <script src="test-app.module.js"></script>
+    <script src="main.controller.js"></script>
+    <script src="repo.service.js"></script>
+  </body>
+</html>
