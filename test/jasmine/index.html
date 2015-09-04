@@ -3,15 +3,48 @@
   <head>
     <title>Jasmine - angular-test-promise</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.4/jasmine.min.css">
+    <link rel="stylesheet" href="../../bower_components/jasmine/lib/jasmine-core/jasmine.css">
   </head>
   <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.4/jasmine.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.4/jasmine-html.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.4/boot.min.js"></script>
+    <!-- Test framework and mocking -->
+    <script src="../../bower_components/jasmine/lib/jasmine-core/jasmine.js"></script>
+    <script src="../../bower_components/jasmine/lib/jasmine-core/jasmine-html.js"></script>
 
+    <!-- Angular with mocks -->
+    <script src="../../bower_components/angular/angular.js"></script>
+    <script src="../../bower_components/angular-mocks/angular-mocks.js"></script>
+
+    <!-- angular-test-promise -->
     <script src="../../src/index.js"></script>
 
-    <script src="main.controller.spec"></script>
+    <!-- code -->
+    <script src="../app/test-app.module.js"></script>
+    <script src="../app/main.controller.js"></script>
+    <script src="../app/repo.service.js"></script>
+
+    <!-- tests -->
+    <script src="main.controller.spec.js"></script>
+
+    <script>
+      (function() {
+        var jasmineEnv = jasmine.getEnv();
+        jasmineEnv.updateInterval = 1000;
+        var trivialReporter = new jasmine.TrivialReporter();
+        jasmineEnv.addReporter(trivialReporter);
+        jasmineEnv.specFilter = function(spec) {
+          return trivialReporter.specFilter(spec);
+        };
+        var currentWindowOnload = window.onload;
+        window.onload = function() {
+          if (currentWindowOnload) {
+            currentWindowOnload();
+          }
+          execJasmine();
+        };
+        function execJasmine() {
+          jasmineEnv.execute();
+        }
+      })();
+    </script>
   </body>
 </html>

@@ -6,7 +6,7 @@ describe('Main controller', function () {
     $scope = $rootScope.$new();
 
     repo = {
-      getCommits = sinon.promise();
+      getCommits: sinon.promise()
     };
 
     $controller = $injector.get('$controller');
@@ -16,10 +16,10 @@ describe('Main controller', function () {
     });
   }));
   it('gets commits on activate', function () {
-    expect(repo.getCommits).calledOnce;
+    expect(repo.getCommits).toHaveBeenCalledOnce();
   });
   it('sets isLoading to true when getting commits', function () {
-    expect(vm.isTrue).toBe(true);
+    expect(vm.isLoading).toBe(true);
   });
   it('sets puts the commits on vm.commits on success', function () {
     var commits = [{}, {}, {}];

@@ -6,7 +6,7 @@ describe('Main controller', function () {
     $scope = $rootScope.$new();
 
     repo = {
-      getCommits = jasmine.createPromise('repo.getCommits');
+      getCommits: jasmine.createPromise('repo.getCommits')
     };
 
     $controller = $injector.get('$controller');
@@ -19,37 +19,32 @@ describe('Main controller', function () {
     expect(repo.getCommits).toHaveBeenCalled();
   });
   it('sets isLoading to true when getting commits', function () {
-    expect(vm.isTrue).toBe(true);
+    expect(vm.isLoading).toBe(true);
   });
-  it('sets puts the commits on vm.commits on success', function () {
+  it('sets the commits on vm.commits on success', function () {
     var commits = [{}, {}, {}];
     repo.getCommits.resolve(commits);
-    $rootScope.$digest();
 
     expect(vm.commits).toEqual(commits);
   });
   it('sets isLoading to false on success', function () {
     var commits = [{}, {}, {}];
     repo.getCommits.resolve(commits);
-    $rootScope.$digest();
 
     expect(vm.isLoading).toBe(false);
   });
   it('puts error on vm.error on fail', function () {
     repo.getCommits.reject('b0rk');
-    $rootScope.$digest();
 
     expect(vm.error).toEqual('b0rk');
   });
   it('sets isLoading to false on fail', function () {
     repo.getCommits.reject('b0rk');
-    $rootScope.$digest();
 
     expect(vm.isLoading).toBe(false);
   });
   it('resets error on getCommits', function () {
     repo.getCommits.reject('b0rk');
-    $rootScope.$digest();
     vm.getCommits();
 
     expect(vm.error).toEqual(null);
