@@ -55,6 +55,7 @@
         autoFlush = true;
         return spy;
       };
+      spy.andResolve = spy.resolves;
 
       spy.reject = function () {
         deferred.reject.apply(deferred, arguments);
@@ -66,6 +67,7 @@
         autoFlush = true;
         return spy;
       };
+      spy.andReject = spy.rejects;
 
       if('function' === typeof spy.andReturn) {
         spy = spy.andReturn(promise);

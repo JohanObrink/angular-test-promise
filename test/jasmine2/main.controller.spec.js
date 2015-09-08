@@ -51,14 +51,14 @@ describe('Main controller', function () {
     expect(vm.error).toEqual(null);
   });
   it('can resolve immediately', function () {
-    repo.getPulls.resolves([{}]);
+    repo.getPulls.andResolve([{}]);
 
     vm.getPulls();
 
     expect(vm.pulls).toEqual([{}]);
   });
   it('can reject immediately', function () {
-    repo.getPulls.rejects('pull b0rk');
+    repo.getPulls.andReject('pull b0rk');
 
     vm.getPulls();
 

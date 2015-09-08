@@ -1,5 +1,5 @@
 # angular-test-promise
-Adds $q promise capability to jasmine or sinon
+Adds $q promise capability to jasmine, jasmine2 and sinon
 
 ## Installing
 
@@ -15,42 +15,69 @@ Make sure ```angular-test-promise``` is included after your selected mocking fra
 
 ```javascript
 var service = {
-	loadStuff: sinon.promise();
+  loadStuff: sinon.promise()
 };
 
 // your promise can be queried lika a spy/stub
 expect(service.loadStuff).calledOnce;
 
 // to resolve the promise, call it like this
-service.loadStuff.resolve([]);
-// and don't forget to $digest since $q promises don't resolve until then
-$rootScope.$digest();
+service.loadStuff.resolve([]); // automatically calls $rootScope.$digest() to force promise to resolve
 
 // to reject the promise, call it like this
-service.loadStuff.reject('Some error occured');
-// and don't forget to $digest since $q promises don't reject until then
-$rootScope.$digest();
+service.loadStuff.reject('Some error occured'); // automatically calls $rootScope.$digest() to force promise to resolve
+
+// You can also create an auto resolving or rejecting promise
+var anotherService = {
+  successfulCall: sinon.promise().resolves('yay!'), // will immediately call then
+  failedCall: sinon.promise().rejects('doh!')     // will immediately call catch
+};
 ```
 
-### Using jasmine without sinon
+### Using jasmine / jasmine 2 without sinon
 
 ```javascript
 var service = {
-	loadStuff: jasmine.createPromise('service.loadStuff');
+  loadStuff: jasmine.createPromise('service.loadStuff')
 };
 
 // your promise can be queried lika a spy
 expect(service.loadStuff).toHaveBeenCalled();
 
 // to resolve the promise, call it like this
-service.loadStuff.resolve([]);
-// and don't forget to $digest since $q promises don't resolve until then
-$rootScope.$digest();
+service.loadStuff.resolve([]); // automatically calls $rootScope.$digest() to force promise to resolve
 
 // to reject the promise, call it like this
-service.loadStuff.reject('Some error occured');
-// and don't forget to $digest since $q promises don't reject until then
-$rootScope.$digest();
+service.loadStuff.reject('Some error occured'); // automatically calls $rootScope.$digest() to force promise to resolve
+
+// You can also create an auto resolving or rejecting promise
+var anotherService = {
+  successfulCall: jasmine.createPromise('anotherService.successfulCall').andResolve('yay!'),  // will immediately call then
+  failedCall: jasmine.createPromise('anotherService.failedCall').andReject('doh!')            // will immediately call catch
+};
+```
+
+### Using jasmine / jasmine 2 with sinon
+
+```javascript
+var service = {
+  loadStuff: sinon.promise()
+};
+
+// your promise can be queried lika a spy
+expect(service.loadStuff).toHaveBeenCalled();
+
+// to resolve the promise, call it like this
+service.loadStuff.resolve([]); // automatically calls $rootScope.$digest() to force promise to resolve
+
+// to reject the promise, call it like this
+service.loadStuff.reject('Some error occured'); // automatically calls $rootScope.$digest() to force promise to resolve
+
+// You can also create an auto resolving or rejecting promise
+var anotherService = {
+  successfulCall: sinon.promise().resolves('yay!'), // will immediately call then
+  failedCall: sinon.promise().rejects('doh!')       // will immediately call catch
+};
 ```
 
 ## Licence
