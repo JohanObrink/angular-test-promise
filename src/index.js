@@ -8,56 +8,82 @@
     $q = $injector.get('$q');
     $rootScope = $injector.get('$rootScope');
 
-    initialized= true;
+    initialized = true;
   }
 
-  if(window.jasmine) {
-    window.jasmine.createPromise = function () {
+  function createPromise(createSpy) {
+    return function () {
       inject();
+      var autoFlush = false;
       var deferred = $q.defer();
-      var spy = jasmine
-        .createSpy
-        .apply(jasmine, arguments);
+
+      function autoFlushPromise(promise) {
+        var _then, _catch, _finally;
+        _then = promise.then;
+        _catch = promise.catch;
+        _finally = promise.finally;
+
+        promise.then = function () {
+          var p = _then.apply(promise, arguments);
+          if(autoFlush) { $rootScope.$digest(); }
+          return autoFlushPromise(p);
+        };
+        promise.catch = function () {
+          var p = _catch.apply(promise, arguments);
+          if(autoFlush) { $rootScope.$digest(); }
+          return autoFlushPromise(p);
+        };
+        promise.finally = function () {
+          var p = _finally.apply(promise, arguments);
+          if(autoFlush) { $rootScope.$digest(); }
+          return autoFlushPromise(p);
+        };
+        return promise;
+      }
+
+      var promise = autoFlushPromise(deferred.promise);
+
+      var spy = createSpy.apply(null, arguments);
 
       spy.resolve = function () {
         deferred.resolve.apply(deferred, arguments);
         $rootScope.$digest();
+        return spy;
+      };
+      spy.resolves = function () {
+        deferred.resolve.apply(deferred, arguments);
+        autoFlush = true;
+        return spy;
       };
 
       spy.reject = function () {
         deferred.reject.apply(deferred, arguments);
         $rootScope.$digest();
+        return spy;
+      };
+      spy.rejects = function () {
+        deferred.reject.apply(deferred, arguments);
+        autoFlush = true;
+        return spy;
       };
 
       if('function' === typeof spy.andReturn) {
-        spy = spy.andReturn(deferred.promise);
-      } else {
-        spy = spy.and.returnValue(deferred.promise);
+        spy = spy.andReturn(promise);
+      } else if(spy.and && 'function' === typeof spy.and.returnValue) {
+        spy = spy.and.returnValue(promise);
+      } else if('function' === typeof spy.returns) {
+        spy = spy.returns(promise);
       }
 
       return spy;
     };
   }
+
+  if(window.jasmine) {
+    window.jasmine.createPromise = createPromise(jasmine.createSpy);
+  }
+
   if(window.sinon) {
-    window.sinon.promise = function () {
-      inject();
-      var deferred = $q.defer();
-      var spy = sinon
-        .stub
-        .apply(sinon, arguments)
-        .returns(deferred.promise);
-
-      spy.resolve = function () {
-        deferred.resolve.apply(deferred, arguments);
-        $rootScope.$digest();
-      };
-
-      spy.reject = function () {
-        deferred.reject.apply(deferred, arguments);
-        $rootScope.$digest();
-      };
-
-      return spy;
-    };
+    window.sinon.promise = createPromise(sinon.stub);
   }
 })();

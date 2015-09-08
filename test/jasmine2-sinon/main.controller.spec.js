@@ -6,7 +6,8 @@ describe('Main controller', function () {
     $scope = $rootScope.$new();
 
     repo = {
-      getCommits: sinon.promise()
+      getCommits: sinon.promise(),
+      getPulls: jasmine.createPromise('repo.getPulls')
     };
 
     var $controller = $injector.get('$controller');
@@ -53,5 +54,19 @@ describe('Main controller', function () {
     vm.getCommits();
 
     expect(vm.error).toEqual(null);
+  });
+  it('can resolve immediately', function () {
+    repo.getPulls.resolves([{}]);
+
+    vm.getPulls();
+
+    expect(vm.pulls).toEqual([{}]);
+  });
+  it('can reject immediately', function () {
+    repo.getPulls.rejects('pull b0rk');
+
+    vm.getPulls();
+
+    expect(vm.error).toEqual('pull b0rk');
   });
 });
