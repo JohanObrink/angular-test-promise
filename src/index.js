@@ -1,10 +1,14 @@
 (function () {
 
-  var $injector, $q, $rootScope;
+  var $injector, $q, $rootScope, initialized;
   function inject() {
+    if(initialized) { return; }
+
     $injector = angular.injector(['ngMock']);
     $q = $injector.get('$q');
     $rootScope = $injector.get('$rootScope');
+
+    initialized= true;
   }
 
   if(window.jasmine) {
