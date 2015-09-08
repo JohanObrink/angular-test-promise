@@ -2,10 +2,7 @@
   "name": "angular-test-promise",
   "version": "0.0.0",
   "description": "Adds $q promise capability to jasmine or sinon",
-  "main": "src/index.js",
-  "scripts": {
-    "test": "gulp test"
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git@github.com:JohanObrink/angular-test-promise.git"
@@ -16,7 +13,7 @@
     "sinon",
     "angular",
     "$q",
-    "tst",
+    "test",
     "promise"
   ],
   "author": "Johan Öbrink <johan.obrink@gmail.com>",
@@ -28,8 +25,6 @@
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-jshint": "^1.11.2",
-    "gulp-mocha-phantomjs": "^0.10.1",
-    "gulp-util": "^3.0.6",
     "jshint-stylish": "^2.0.1"
   }
 }

@@ -1,14 +1,8 @@
 var gulp = require('gulp'),
-  jshint = require('gulp-jshint'),
-  mocha = require('gulp-mocha-phantomjs');
+  jshint = require('gulp-jshint');
 
 gulp.task('jshint', function () {
-  return gulp.src(['gulpfile.js', 'src/**/*.js', 'test/**/*.js'])
+  return gulp.src(['gulpfile.js', 'index.js', 'test/**/*.js'])
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'));
-});
-
-gulp.task('mocha', function () {
-  return gulp.src('test/mocha-chai-sinon/index.html')
-    .pipe(mocha());
 });
