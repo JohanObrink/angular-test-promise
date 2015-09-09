@@ -80,6 +80,16 @@ var anotherService = {
 };
 ```
 
+## Testing
+
+Clone the repo
+
+```git clone git@github.com:JohanObrink/angular-test-promise.git```
+
+Open ```test/index.html``` in your browser. Refresh after code change.
+
+The plan is to get the tests running headless in a console with autorefresh etc. but I'm not there yet.
+
 ## Licence
 
 The MIT License (MIT)
