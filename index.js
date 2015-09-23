@@ -11,6 +11,11 @@
     initialized = true;
   }
 
+  function digest() {
+    try { $rootScope.$digest(); }
+    catch(err) { /* that's ok */ }
+  }
+
   function createPromise(createSpy) {
     return function () {
       inject();
@@ -25,17 +30,17 @@
 
         promise.then = function () {
           var p = _then.apply(promise, arguments);
-          if(autoFlush) { $rootScope.$digest(); }
+          if(autoFlush) { digest(); }
           return autoFlushPromise(p);
         };
         promise.catch = function () {
           var p = _catch.apply(promise, arguments);
-          if(autoFlush) { $rootScope.$digest(); }
+          if(autoFlush) { digest(); }
           return autoFlushPromise(p);
         };
         promise.finally = function () {
           var p = _finally.apply(promise, arguments);
-          if(autoFlush) { $rootScope.$digest(); }
+          if(autoFlush) { digest(); }
           return autoFlushPromise(p);
         };
         return promise;
@@ -47,7 +52,7 @@
 
       spy.resolve = function () {
         deferred.resolve.apply(deferred, arguments);
-        $rootScope.$digest();
+        digest();
         return spy;
       };
       spy.resolves = function () {
@@ -59,7 +64,7 @@
 
       spy.reject = function () {
         deferred.reject.apply(deferred, arguments);
-        $rootScope.$digest();
+        digest();
         return spy;
       };
       spy.rejects = function () {
