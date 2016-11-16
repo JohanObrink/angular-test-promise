@@ -1,6 +1,6 @@
 {
   "name": "angular-test-promise",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Adds $q promise capability to jasmine or sinon",
   "scripts": {},
   "repository": {
