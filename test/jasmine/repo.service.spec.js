@@ -10,13 +10,14 @@ describe('repo service', function () {
     repo = $injector.get('repo');
   }));
   describe('#getCommits', function () {
-    var success, fail, done;
+    var success, fail, done, notify;
     beforeEach(function () {
       success = jasmine.createSpy('success');
       fail = jasmine.createSpy('fail');
       done = jasmine.createSpy('done');
+      notify = jasmine.createSpy('notify');
 
-      repo.getCommits().then(success).catch(fail).finally(done);
+      repo.getCommits().then(success).catch(fail).finally(done, notify);
     });
     it('gets the correct url', function () {
       expect($http.get)
@@ -35,6 +36,14 @@ describe('repo service', function () {
       expect(success).not.toHaveBeenCalled();
       expect(fail).toHaveBeenCalledWith('b0rk');
       expect(done).toHaveBeenCalled();
+    });
+    it('propagates notifications', function () {
+      $http.get.notify('hello');
+
+      expect(success).not.toHaveBeenCalled();
+      expect(fail).not.toHaveBeenCalled();
+      expect(notify).toHaveBeenCalledWith('hello');
+      expect(done).not.toHaveBeenCalled();
     });
   });
 });

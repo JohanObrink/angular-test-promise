@@ -74,6 +74,18 @@
       };
       spy.andReject = spy.rejects;
 
+      spy.notify = function () {
+        deferred.notify.apply(deferred, arguments);
+        digest();
+        return spy;
+      };
+      spy.notifies = function () {
+        deferred.notify.apply(deferred, arguments);
+        autoFlush = true;
+        return spy;
+      };
+      spy.andNotify = spy.notifies;
+
       if('function' === typeof spy.andReturn) {
         spy = spy.andReturn(promise);
       } else if(spy.and && 'function' === typeof spy.and.returnValue) {

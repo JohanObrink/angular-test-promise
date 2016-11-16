@@ -10,13 +10,14 @@ describe('repo service', function () {
     repo = $injector.get('repo');
   }));
   describe('#getCommits', function () {
-    var success, fail, done;
+    var success, fail, done, notify;
     beforeEach(function () {
       success = sinon.spy();
       fail = sinon.spy();
+      notify = sinon.spy();
       done = sinon.spy();
 
-      repo.getCommits().then(success).catch(fail).finally(done);
+      repo.getCommits().then(success).catch(fail).finally(done, notify);
     });
     it('gets the correct url', function () {
       expect($http.get)
@@ -36,6 +37,14 @@ describe('repo service', function () {
       expect(success).not.called;
       expect(fail).calledOnce.calledWith('b0rk');
       expect(done).calledOnce;
+    });
+    it('propagates notifications', function () {
+      $http.get.notify('hello');
+
+      expect(success).not.called;
+      expect(fail).not.called;
+      expect(notify).calledOnce.calledWith('hello');
+      expect(done).not.called;
     });
   });
 });
