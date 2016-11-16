@@ -27,6 +27,9 @@ service.loadStuff.resolve([]); // automatically calls $rootScope.$digest() to fo
 // to reject the promise, call it like this
 service.loadStuff.reject('Some error occured'); // automatically calls $rootScope.$digest() to force promise to resolve
 
+// to notify on the promise, call it like this
+service.loadStuff.notify('Some progress message'); // automatically calls $rootScope.$digest() to force promise to resolve
+
 // You can also create an auto resolving or rejecting promise
 var anotherService = {
   successfulCall: sinon.promise().resolves('yay!'), // will immediately call then
@@ -50,6 +53,9 @@ service.loadStuff.resolve([]); // automatically calls $rootScope.$digest() to fo
 // to reject the promise, call it like this
 service.loadStuff.reject('Some error occured'); // automatically calls $rootScope.$digest() to force promise to resolve
 
+// to notify on the promise, call it like this
+service.loadStuff.notify('Some progress message'); // automatically calls $rootScope.$digest() to force promise to resolve
+
 // You can also create an auto resolving or rejecting promise
 var anotherService = {
   successfulCall: jasmine.createPromise('anotherService.successfulCall').andResolve('yay!'),  // will immediately call then
@@ -72,6 +78,9 @@ service.loadStuff.resolve([]); // automatically calls $rootScope.$digest() to fo
 
 // to reject the promise, call it like this
 service.loadStuff.reject('Some error occured'); // automatically calls $rootScope.$digest() to force promise to resolve
+
+// to notify on the promise, call it like this
+service.loadStuff.notify('Some progress message'); // automatically calls $rootScope.$digest() to force promise to resolve
 
 // You can also create an auto resolving or rejecting promise
 var anotherService = {
